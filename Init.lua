@@ -65,7 +65,11 @@ end
 function DFMinimap:OnInitialize()
     local level = GetExpansionLevel();
 
-    self.GameTimeFramePosition = {-4, 0};
+    if (level == 0) then -- classic
+        DFMinimap.GameTimeFramePosition = {0, -30};
+    else
+        DFMinimap.GameTimeFramePosition = {-4, 0};
+    end
 
     print(GetAddOnMetadata(addonName, "Title"));
 
@@ -78,7 +82,7 @@ function DFMinimap:OnInitialize()
 
             GameTimeFrame:SetParent(MinimapCluster);
             GameTimeFrame:ClearAllPoints();
-            GameTimeFrame:SetPoint("TOPRIGHT", self.GameTimeFramePosition[1], self.GameTimeFramePosition[2]);
+            GameTimeFrame:SetPoint("TOPRIGHT", DFMinimap.GameTimeFramePosition[1], DFMinimap.GameTimeFramePosition[2]);
         end
     end);
 
@@ -118,25 +122,4 @@ function DFMinimap:OnInitialize()
     MinimapZoneText:SetPoint("LEFT", 16, 2);
     MinimapZoneText:SetJustifyH("LEFT");
     MinimapZoneText:SetJustifyV("MIDDLE");
-
-    self:RawHook("GarrisonLandingPageMinimapButton_UpdateIcon", true);
 end
-
-local garrisonTypeAnchors = {
-	["default"] = AnchorUtil.CreateAnchor("TOPLEFT", "MinimapBackdrop", "TOPLEFT", 5, -162),
-	[Enum.GarrisonType.Type_9_0] = AnchorUtil.CreateAnchor("TOPLEFT", "MinimapBackdrop", "TOPLEFT", -3, -150),
-}
-
-function DFMinimap:GarrisonLandingPageMinimapButton_UpdateIcon()
-    self.hooks.GarrisonLandingPageMinimapButton_UpdateIcon(GarrisonLandingPageMinimapButton);
-	local garrisonType = C_Garrison.GetLandingPageGarrisonType();
-    local anchor = garrisonTypeAnchors[garrisonType or "default"] or garrisonTypeAnchors["default"];
-	anchor:SetPoint(GarrisonLandingPageMinimapButton, true);
-end
-
-GarrisonLandingPageMinimapButton:ClearAllPoints();
-GarrisonLandingPageMinimapButton:SetPoint("TOPLEFT", -3, -150);
-QueueStatusMinimapButton:ClearAllPoints();
-QueueStatusMinimapButton:SetPoint("LEFT", -8, 25);
-MiniMapTracking:ClearAllPoints();
-MiniMapTracking:SetPoint("RIGHT", MinimapZoneTextButton, "LEFT", 10, 1);

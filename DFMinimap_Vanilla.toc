@@ -1,5 +1,5 @@
-## Interface: 90005
-## Title: Dragonflight Minimap
+## Interface: 11403
+## Title: Dragonflight Minimap |cFFE6CC80Classic|r
 ## Author: ludwici
 ## DefaultState: Enabled
 ## Version: 1.5

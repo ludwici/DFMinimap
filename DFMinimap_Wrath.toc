@@ -1,0 +1,9 @@
+## Interface: 30402
+## Title: Dragonflight Minimap |cFF0070DDWotLK|r
+## Author: ludwici
+## DefaultState: Enabled
+## Version: 1.5
+## X-Discord: ludwici
+
+DFMinimap.xml
+wotlk.lua
